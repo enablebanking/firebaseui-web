@@ -324,6 +324,9 @@ firebaseui.auth.widget.handler.completeEmailLinkSignIn_ = function(
               firebaseui.auth.widget.handler.completeEmailConfirmation_,
               null,
               errorMessage);
+        } else if (normalizedError['code'] == 'auth/multi-factor-auth-required'){
+          const errorEvent = new CustomEvent('MFARequired', { detail: error });
+          document.dispatchEvent(errorEvent);
         } else {
           firebaseui.auth.widget.handler.common.handleSignInStart(
               app, container, email, errorMessage);
